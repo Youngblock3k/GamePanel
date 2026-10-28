@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="Game Panel">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1411"/>
+      <stop offset="1" stop-color="#142a22"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4fd1a1"><animate attributeName="stop-color" values="#4fd1a1;#e0a458;#6b8cff;#4fd1a1" dur="12s" repeatCount="indefinite"/></stop>
+      <stop offset="1" stop-color="#6b8cff"><animate attributeName="stop-color" values="#6b8cff;#4fd1a1;#e0a458;#6b8cff" dur="12s" repeatCount="indefinite"/></stop>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".05"/>
+    </pattern>
+    <clipPath id="clip"><rect width="1200" height="320" rx="18"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1200" height="320" fill="url(#bg)"/>
+    <rect width="1200" height="320" fill="url(#grid)">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="40 40" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <!-- drifting cubes -->
+    <g fill="none" stroke="url(#glow)" stroke-width="2" opacity=".55">
+      <path d="M980 60l34 19v38l-34 19-34-19V79z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -14;0 0" dur="5s" repeatCount="indefinite"/></path>
+      <path d="M1090 190l24 13v27l-24 13-24-13v-27z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12;0 0" dur="4s" repeatCount="indefinite"/></path>
+      <path d="M860 220l18 10v20l-18 10-18-10v-20z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -10;0 0" dur="6s" repeatCount="indefinite"/></path>
+    </g>
+    <!-- title -->
+    <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+      <text x="70" y="150" font-size="84" font-weight="800" fill="url(#glow)" letter-spacing="-2">Game Panel</text>
+      <text x="74" y="200" font-size="26" fill="#cfe5dc" opacity=".9">Run game servers in locked-down containers.</text>
+      <text x="74" y="244" font-size="18" fill="#7fa597" font-family="Consolas, Menlo, monospace">
+        <tspan>panel</tspan><tspan fill="#4fd1a1"> ──▶ </tspan><tspan>daemon</tspan><tspan fill="#4fd1a1"> ──▶ </tspan><tspan>docker</tspan><tspan fill="#e0a458"> ▌</tspan>
+        <animate attributeName="opacity" values="1;1;.55;1" dur="2.4s" repeatCount="indefinite"/>
+      </text>
+    </g>
+    <!-- scanning bar -->
+    <rect x="0" y="312" width="1200" height="8" fill="url(#glow)" opacity=".8"/>
+    <rect x="-300" y="312" width="300" height="8" fill="#ffffff" opacity=".45">
+      <animate attributeName="x" from="-300" to="1200" dur="3.5s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>

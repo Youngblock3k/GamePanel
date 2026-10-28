@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300" role="img" aria-label="Browser to panel to daemon to containers">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4fd1a1"/></marker>
+    <style>
+      .box { fill: #12201a; stroke: #2f5c4b; stroke-width: 2; }
+      .t { font: 700 18px Segoe UI, Helvetica, Arial, sans-serif; fill: #e6f4ee; }
+      .s { font: 13px Segoe UI, Helvetica, Arial, sans-serif; fill: #8db7a6; }
+      .m { font: 12px Consolas, Menlo, monospace; fill: #e0a458; }
+      .flow { stroke: #4fd1a1; stroke-width: 3; fill: none; stroke-dasharray: 10 8; marker-end: url(#a); animation: dash 1.2s linear infinite; }
+      @keyframes dash { to { stroke-dashoffset: -18; } }
+      .pulse { animation: pulse 3s ease-in-out infinite; }
+      @keyframes pulse { 50% { stroke: #4fd1a1; } }
+    </style>
+  </defs>
+  <rect width="1000" height="300" rx="16" fill="#0c1411"/>
+  <g class="pulse"><rect class="box" x="30" y="100" width="170" height="100" rx="12"/></g>
+  <text class="t" x="115" y="145" text-anchor="middle">Browser</text><text class="s" x="115" y="170" text-anchor="middle">you and your players</text>
+
+  <rect class="box" x="290" y="80" width="200" height="140" rx="12"/>
+  <text class="t" x="390" y="125" text-anchor="middle">Panel</text><text class="s" x="390" y="150" text-anchor="middle">PHP · database · UI</text><text class="s" x="390" y="172" text-anchor="middle">users, roles, eggs, nodes</text>
+
+  <rect class="box" x="580" y="80" width="170" height="140" rx="12"/>
+  <text class="t" x="665" y="125" text-anchor="middle">Daemon</text><text class="s" x="665" y="150" text-anchor="middle">one per node</text><text class="s" x="665" y="172" text-anchor="middle">files · power · logs</text>
+
+  <g>
+    <rect class="box" x="830" y="40" width="140" height="56" rx="10"/><text class="s" x="900" y="73" text-anchor="middle">container: survival</text>
+    <rect class="box" x="830" y="122" width="140" height="56" rx="10"/><text class="s" x="900" y="155" text-anchor="middle">container: rust</text>
+    <rect class="box" x="830" y="204" width="140" height="56" rx="10"/><text class="s" x="900" y="237" text-anchor="middle">container: cs2</text>
+  </g>
+  <path class="flow" d="M205 150H283"/><text class="m" x="244" y="140" text-anchor="middle">HTTPS</text>
+  <path class="flow" d="M495 150H573"/><text class="m" x="534" y="140" text-anchor="middle">HMAC</text>
+  <path class="flow" d="M755 130C790 100 800 80 825 70"/>
+  <path class="flow" d="M755 150H825"/>
+  <path class="flow" d="M755 170C790 200 800 225 825 232"/>
+</svg>
