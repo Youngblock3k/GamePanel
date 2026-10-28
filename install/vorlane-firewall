@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Container isolation. Game servers live on the 172.30.0.0/16 bridge (vl0). A compromised container must not be able to:
+#   - reach services on the node itself (SSH, the daemon, databases...)
+#   - scan or attack the LAN / other private networks / cloud metadata endpoints
+# Players can still connect (published ports) and containers can still reach the public internet.
+set -euo pipefail
+SUBNET="${VL_SUBNET:-172.30.0.0/16}"
+BRIDGE="${VL_BRIDGE:-vl0}"
+
+# --- forwarded traffic (container -> elsewhere) -----------------------------------------------
+iptables -N VS-ISOLATE 2>/dev/null || iptables -F VS-ISOLATE
+iptables -A VS-ISOLATE -m conntrack --ctstate ESTABLISHED,RELATED -j RETURN   # replies to players (even on a LAN)
+for net in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 169.254.0.0/16 100.64.0.0/10 127.0.0.0/8 224.0.0.0/4; do
+  iptables -A VS-ISOLATE -d "$net" -j DROP
+done
+iptables -A VS-ISOLATE -j RETURN
+iptables -C DOCKER-USER -s "$SUBNET" -j VS-ISOLATE 2>/dev/null || iptables -I DOCKER-USER 1 -s "$SUBNET" -j VS-ISOLATE
+
+# --- flood shield: traffic from the internet towards the game servers ----------------------------
+# Generous limits per source address; normal players never get near them. Real volumetric DDoS must be
+# absorbed upstream (your host's DDoS filter, Cloudflare Spectrum, TCPShield...) because it saturates the link before this box sees it.
+iptables -N VS-SHIELD 2>/dev/null || iptables -F VS-SHIELD
+iptables -A VS-SHIELD -m conntrack --ctstate ESTABLISHED,RELATED -j RETURN
+iptables -A VS-SHIELD -m conntrack --ctstate INVALID -j DROP
+iptables -A VS-SHIELD -p tcp --syn -m hashlimit --hashlimit-name vs_syn --hashlimit-mode srcip --hashlimit-above 40/second --hashlimit-burst 80 -j DROP
+iptables -A VS-SHIELD -p tcp -m connlimit --connlimit-above 80 --connlimit-mask 32 -j REJECT --reject-with tcp-reset
+iptables -A VS-SHIELD -p udp -m hashlimit --hashlimit-name vs_udp --hashlimit-mode srcip --hashlimit-above 4000/second --hashlimit-burst 8000 -j DROP
+iptables -A VS-SHIELD -j RETURN
+iptables -C DOCKER-USER -d "$SUBNET" -j VS-SHIELD 2>/dev/null || iptables -I DOCKER-USER 1 -d "$SUBNET" -j VS-SHIELD
+
+# --- traffic to the node itself ----------------------------------------------------------------
+iptables -N VS-INPUT 2>/dev/null || iptables -F VS-INPUT
+iptables -A VS-INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A VS-INPUT -p icmp --icmp-type echo-request -j DROP
+iptables -A VS-INPUT -j DROP
+iptables -C INPUT -i "$BRIDGE" -j VS-INPUT 2>/dev/null || iptables -I INPUT 1 -i "$BRIDGE" -j VS-INPUT
+
+echo "Vorlane container isolation active ($SUBNET on $BRIDGE)."

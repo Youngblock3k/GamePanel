@@ -1,0 +1,8 @@
+panel/config/config.php
+panel/storage/
+daemon/config.php
+.seal/
+panel/build/seal.json.bak
+daemon/dev/runtime/
+daemon/dev/cacert.pem
+.claude/

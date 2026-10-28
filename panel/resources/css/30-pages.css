@@ -1,0 +1,44 @@
+/* Page-level extras */
+.preset { background: var(--panel2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.preset p { flex: 1; margin: 0; }
+.end-row { justify-content: flex-end; }
+.end-row form { display: inline; }
+textarea { resize: vertical; }
+.brand-logo { width: 32px; height: 32px; border-radius: 9px; object-fit: contain; background: var(--panel2); flex: none; }
+.brand-preview { display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--panel2); border-radius: 12px; margin-bottom: 14px; }
+.brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px; }
+input[type=file] { padding: 8px; }
+.php-warn { border-color: var(--bad); }
+
+.qr-wrap{display:inline-block;background:#fff;padding:6px;border-radius:6px;margin:6px 0 10px}
+.qr-wrap .qr{display:block;width:200px;height:200px}
+
+.opt { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 10px 12px; margin: 8px 0; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+.opt input { width: auto; margin: 0; }
+.opt .muted { flex-basis: 100%; padding-left: 26px; }
+
+.wiz { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: start; } .wiz-main .card { margin-bottom: 18px; }
+@media (max-width: 1000px) { .wiz { grid-template-columns: 1fr; } }
+.step { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-right: 8px; border-radius: 8px; background: var(--accent); color: #0d1613; font-size: .8rem; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 10px 0 14px; }
+.tile { position: relative; display: block; padding: 0; margin: 0; background: var(--panel2); border: 2px solid var(--edge); border-radius: 12px; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.tile input { position: absolute; opacity: 0; width: 0; height: 0; }
+.tile-body, button.tile { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; }
+.tile:hover { border-color: var(--accent); } .tile:has(input:checked), .tile.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--panel2)); }
+.tile small { text-transform: capitalize; }
+.sum { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 0 0 14px; } .sum dt { color: var(--muted); } .sum dd { margin: 0; text-align: right; word-break: break-word; }
+.sticky { position: sticky; top: 76px; }
+.block { display: block; width: 100%; margin-top: 12px; }
+select { color-scheme: dark; appearance: none; -webkit-appearance: none; padding-right: 36px; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b9a94' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 16px; }
+select option { background: var(--panel2); color: var(--text); padding: 8px; }
+select option:checked { background: var(--accent); color: #0d1613; }
+
+.reveal { margin-bottom: 18px; } .reveal > summary { list-style: none; display: inline-block; cursor: pointer; margin-bottom: 14px; } .reveal > summary::-webkit-details-marker { display: none; }
+.cap { padding: 12px 0; border-top: 1px solid var(--line); } .cap:first-of-type { border-top: 0; }
+.link-tile { display: block; color: var(--text); margin-bottom: 0; } .link-tile b { display: block; font-size: 1.05rem; margin-bottom: 4px; } .link-tile span { color: var(--muted); }
+.link-tile:hover { border-color: var(--accent); text-decoration: none; }
+.tiles-links { margin-top: 18px; }
+.ipchip { display: inline-flex; align-items: center; gap: 8px; padding: 3px 10px 3px 6px; border: 1.5px solid var(--edge); border-radius: 99px; background: var(--panel2); font-size: .82rem; }
+.ipchip .flag { font-size: 1.05rem; line-height: 1; } .ipchip .ipcode { font-weight: 700; font-size: .68rem; letter-spacing: .08em; color: var(--muted); }
+.ipchip .ipval { font-family: var(--mono); filter: blur(5px); transition: filter .15s; user-select: none; }
+.ipchip:hover .ipval { filter: none; user-select: text; }
